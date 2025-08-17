@@ -20,7 +20,7 @@ function SearchBar({ onSearch }) {
         />
         <button
           type="submit"
-          className="bg-blue-500 text-white p-2 rounded-r-lg hover:bg-blue-600"
+          className="bg-blue-500 text-black p-2 rounded-r-lg hover:bg-blue-600"
         >
           Search
         </button>

@@ -1,74 +1,24 @@
-import { useState, useEffect } from 'react';
-import SearchBar from './components/SearchBar';
-import MovieList from './components/MovieList';
-import MovieDetails from './components/MovieDetails';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import SearchPage from "./pages/SearchPage";
 
 function App() {
-  const [movies, setMovies] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [error, setError] = useState(null);
-  const [selectedMovie, setSelectedMovie] = useState(null);
-  const [loadingDetails, setLoadingDetails] = useState(false);
-
-  const API_KEY = import.meta.env.VITE_OMDB_API_KEY;
-  const API_URL = `https://www.omdbapi.com/?apikey=${API_KEY}`;
-
-  useEffect(() => {
-    if (searchQuery) {
-      fetch(`${API_URL}&s=${searchQuery}`)
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.Response === 'True') {
-            setMovies(data.Search);
-            setError(null);
-          } else {
-            setMovies([]);
-            setError(data.Error);
-          }
-        })
-        .catch(() => {
-          setError('Failed to fetch movie data. Please try again.');
-          setMovies([]);
-        });
-    }
-  }, [searchQuery]);
-
-  // Fetch full details when a movie is clicked
-  const handleMovieClick = (imdbID) => {
-    setLoadingDetails(true);
-    fetch(`${API_URL}&i=${imdbID}&plot=full`)
-      .then((res) => res.json())
-      .then((data) => {
-        setSelectedMovie(data);
-        setLoadingDetails(false);
-      })
-      .catch(() => {
-        setError('Failed to fetch movie details.');
-        setLoadingDetails(false);
-      });
-  };
-
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
-      <h1 className="text-2xl font-bold text-center mb-4">Movie Database</h1>
-      <SearchBar onSearch={setSearchQuery} />
+    <Router>
+      <div className="min-h-screen bg-gray-50">
+        {/* Navigation */}
+        <nav className="bg-gray-800 text-white p-4 flex justify-center gap-6">
+          <Link to="/" className="hover:underline">Home</Link>
+          <Link to="/search" className="hover:underline">Search</Link>
+        </nav>
 
-      {error && <p className="text-red-500 text-center">{error}</p>}
-
-      {movies.length > 0 && (
-        <MovieList movies={movies} onMovieClick={handleMovieClick} />
-      )}
-
-      {loadingDetails && <p className="text-center mt-4">Loading details...</p>}
-
-      {selectedMovie && (
-        <MovieDetails
-          movie={selectedMovie}
-          onClose={() => setSelectedMovie(null)}
-        />
-      )}
-    </div>
+        {/* Pages */}
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/search" element={<SearchPage />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
