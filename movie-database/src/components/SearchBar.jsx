@@ -16,7 +16,7 @@ function SearchBar({ onSearch }) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search movies..."
-          className="w-full max-w-md p-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full p-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <button
           type="submit"

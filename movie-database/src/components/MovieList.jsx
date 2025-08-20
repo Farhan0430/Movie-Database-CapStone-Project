@@ -1,16 +1,17 @@
 function MovieList({ movies, onMovieClick }) {
-  if (!movies || movies.length === 0) return <p className="text-center">No movies found.</p>;
+  if (!movies || movies.length === 0)
+    return <p className="text-center">No movies found.</p>;
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 w-full">
       {movies.map((movie) => (
         <div
           key={movie.imdbID}
-          className="bg-white rounded-lg shadow cursor-pointer overflow-hidden"
+          className="bg-white rounded-lg shadow cursor-pointer overflow-hidden w-full"
           onClick={() => onMovieClick(movie.imdbID)}
         >
           <img
-            src={movie.Poster !== 'N/A' ? movie.Poster : 'https://via.placeholder.com/150'}
+            src={movie.Poster !== "N/A" ? movie.Poster : "https://via.placeholder.com/150"}
             alt={movie.Title}
             className="w-full h-64 object-cover"
           />
