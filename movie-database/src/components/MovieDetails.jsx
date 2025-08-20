@@ -3,15 +3,20 @@ function MovieDetails({ movie, onClose }) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-white rounded-lg p-6 max-w-lg w-full relative">
+      <div
+        className="
+          bg-white rounded-lg p-6 w-full max-w-3xl relative 
+          max-h-[90vh] overflow-y-auto mx-4
+        "
+      >
         <button
           onClick={onClose}
-          className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
+          className="absolute top-3 right-3 bg-gray-200 rounded-full p-1.5 text-gray-700 hover:text-gray-900 shadow"
         >
           ✕
         </button>
 
-        <h2 className="text-2xl font-bold mb-2">
+        <h2 className="text-2xl font-bold mb-4">
           {movie.Title} ({movie.Year})
         </h2>
 
@@ -27,9 +32,9 @@ function MovieDetails({ movie, onClose }) {
           <strong>Plot:</strong> {movie.Plot || 'N/A'}
         </p>
 
-        <div className="mb-2">
+        <div className="mb-4">
           <strong>Ratings:</strong>
-          <ul>
+          <ul className="list-disc list-inside">
             {movie.Ratings && movie.Ratings.length > 0 ? (
               movie.Ratings.map((rating, idx) => (
                 <li key={idx}>
@@ -42,11 +47,11 @@ function MovieDetails({ movie, onClose }) {
           </ul>
         </div>
 
-        {movie.Poster && movie.Poster !== 'N/A' && (
+        {movie.Poster && movie.Poster !== "N/A" && (
           <img
             src={movie.Poster}
             alt={movie.Title}
-            className="w-full mt-2 rounded"
+            className="w-full rounded"
           />
         )}
       </div>
