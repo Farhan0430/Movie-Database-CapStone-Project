@@ -3,7 +3,7 @@ import SearchBar from "../components/SearchBar";
 import MovieList from "../components/MovieList";
 import MovieDetails from "../components/MovieDetails";
 
-export default function SearchPage() {
+export default function SearchPage({ favorites, addFavorite, removeFavorite }) {
   const [movies, setMovies] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [error, setError] = useState(null);
@@ -50,10 +50,9 @@ export default function SearchPage() {
   return (
     <div className="min-h-screen w-full bg-gradient-to-b from-gray-900 via-gray-800 to-black text-black flex flex-col items-center">
       <div className="w-full max-w-3xl p-6">
-        {/* Title */}
         <h1 className="text-3xl font-bold text-center mb-6 text-white">🔍 Search Movies</h1>
 
-        {/* Search Box Card */}
+        {/* Search Box */}
         <div className="bg-white shadow-lg rounded-2xl p-4 flex items-center gap-2">
           <input
             type="text"
@@ -75,7 +74,13 @@ export default function SearchPage() {
         {/* Movie Results */}
         {movies.length > 0 && (
           <div className="mt-6">
-            <MovieList movies={movies} onMovieClick={handleMovieClick} />
+            <MovieList
+              movies={movies}
+              onMovieClick={handleMovieClick}
+              favorites={favorites}
+              addFavorite={addFavorite}
+              removeFavorite={removeFavorite}
+            />
           </div>
         )}
 
@@ -91,6 +96,9 @@ export default function SearchPage() {
           <MovieDetails
             movie={selectedMovie}
             onClose={() => setSelectedMovie(null)}
+            favorites={favorites}
+            addFavorite={addFavorite}
+            removeFavorite={removeFavorite}
           />
         )}
       </div>
