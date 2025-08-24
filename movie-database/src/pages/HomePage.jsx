@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import MovieList from "../components/MovieList";
 import MovieDetails from "../components/MovieDetails";
 
-export default function HomePage() {
+export default function HomePage({ favorites, addFavorite, removeFavorite }) {
   const [trending, setTrending] = useState([]);
   const [newReleases, setNewReleases] = useState([]);
   const [error, setError] = useState(null);
@@ -67,12 +67,24 @@ export default function HomePage() {
 
         <section className="mb-8">
           <h2 className="text-2xl md:text-3xl font-bold mb-4 text-white">🔥 Trending Movies</h2>
-          <MovieList movies={trending} onMovieClick={handleMovieClick} />
+          <MovieList
+            movies={trending}
+            onMovieClick={handleMovieClick}
+            favorites={favorites}
+            addFavorite={addFavorite}
+            removeFavorite={removeFavorite}
+          />
         </section>
 
         <section>
           <h2 className="text-2xl md:text-3xl font-bold mb-4 text-white">🆕 New Releases (2025)</h2>
-          <MovieList movies={newReleases} onMovieClick={handleMovieClick} />
+          <MovieList
+            movies={newReleases}
+            onMovieClick={handleMovieClick}
+            favorites={favorites}
+            addFavorite={addFavorite}
+            removeFavorite={removeFavorite}
+          />
         </section>
 
         {loadingDetails && (
@@ -85,6 +97,9 @@ export default function HomePage() {
           <MovieDetails
             movie={selectedMovie}
             onClose={() => setSelectedMovie(null)}
+            favorites={favorites}
+            addFavorite={addFavorite}
+            removeFavorite={removeFavorite}
           />
         )}
       </div>
